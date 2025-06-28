@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="text">Rock Paper Scissors</h1>
+    <h2 class="text">Choose one on this</h2>
+    <div class="divdivimg">
+        <div class="divimg">
+            <img src="rock2.png" class="imgs" alt="Rock"  onclick="Rock()">
+            <img src="paper.png" class="imgs" alt="Paper" onclick="Paper()">
+            <img src="scissors.png" class="imgs" alt="Scissors" onclick="Scissor()">
+        </div>
+    </div>
+    <br>
+    <div class="btndiv">
+    <button onclick="score.Win=0,score.Draw=0,score.Loss=0
+    localStorage.removeItem('score')
+    update()" class="btn">Reset</button>
+    </div>
+    <div id="comdiv">
+        <img src="rock2.png" alt="" class="imgs" id="ourScore">
+        <img src="rock2.png" alt="" class="imgs" id="comScore">
+    </div>
+    <p id="scores"></p>
+    <script>
+        let score=JSON.parse(localStorage.getItem('score'))
+        var computerMove=''
+        if (score === null){
+            score={
+                Win:0,Loss:0,Draw:0
+            }
+        }
+        localStorage.setItem('score',JSON.stringify(score))
+        function comScore(){
+            let value=Math.random()
+            if(value<=1/3){
+                computerMove='Rock'
+            }
+            else if(value>1/3 && value<=2/3){
+                computerMove='Paper'
+            }
+            else{
+                computerMove='Scissors'
+            }
+        }
+        function Rock(){
+            comScore()
+            if(computerMove==='Rock'){
+                score.Draw+=1
+                document.getElementById("comScore").src='rock2.png'
+            }
+            else if(computerMove==='Paper'){
+                score.Loss+=1
+                document.getElementById("comScore").src='paper.png'
+            }
+            else{
+                score.Win+=1
+                document.getElementById("comScore").src='scissors.png'
+            }
+
+            document.getElementById("ourScore").src='rock2.png'
+            localStorage.setItem('score',JSON.stringify(score))
+            update()
+            
+        }
+        function Paper(){
+            comScore()
+            if(computerMove==='Paper'){
+                score.Draw+=1
+                document.getElementById("comScore").src='paper.png'
+            }
+            else if(computerMove==='Scissors'){
+                score.Loss+=1
+                document.getElementById("comScore").src='scissors.png'
+            }
+            else{
+                score.Win+=1
+                document.getElementById("comScore").src='rock2.png'
+            }
+            document.getElementById("ourScore").src='paper.png'
+            localStorage.setItem('score',JSON.stringify(score))
+            update()
+        }
+        function Scissor(){
+            comScore()
+            if(computerMove==='Scissors'){
+                score.Draw+=1
+                document.getElementById("comScore").src='scissors.png'
+            }
+            else if(computerMove==='Rock'){
+                score.Loss+=1
+                document.getElementById("comScore").src='rock2.png'
+            }
+            else{
+                score.Win+=1
+                document.getElementById("comScore").src='paper.png'
+            }
+           document.getElementById("ourScore").src='scissors.png'
+           localStorage.setItem('score',JSON.stringify(score))
+           update()
+        }
+        function update(){
+            document.getElementById('scores').innerHTML=`Win: ${score.Win} , Loss : ${score.Loss} , Draw : ${score.Draw}`
+        }
+    </script>
+</body>
+</html>
