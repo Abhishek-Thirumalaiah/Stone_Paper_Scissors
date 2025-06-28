@@ -24,7 +24,7 @@ body{
     justify-content: center;
 }
 
-.text {
+.text,#scores {
     text-align: center;
     background: linear-gradient(to right, rgb(65, 31, 31), rgb(188, 188, 110));
     -webkit-background-clip: text;
